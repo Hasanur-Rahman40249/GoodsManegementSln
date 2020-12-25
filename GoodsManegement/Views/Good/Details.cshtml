@@ -1,0 +1,38 @@
+﻿@model GoodsManegement.Models.Good
+@{
+    ViewBag.Title = "Details";
+}
+<div>
+    <dl>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GoodsId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GoodsId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GoodsName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GoodsName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GoodsPrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GoodsPrice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UrlImage)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="~/imags/@Model.UrlImage" height="70" width="70" alt="ImageView" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Supplier)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Supplier.SupplierName)
+        </dd>
+    </dl>
+</div>

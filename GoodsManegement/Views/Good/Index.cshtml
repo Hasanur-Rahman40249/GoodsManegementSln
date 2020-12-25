@@ -1,0 +1,67 @@
+﻿@model PaginetedList<Good>
+@{
+    ViewBag.Title = "Goods List";
+}
+<div class="row">
+    <div class="col-sm-12">     
+        <h2>Goods List</h2>     
+        <div>
+            <a asp-controller="Good" asp-action="Create" class="btn btn-info" style="width:auto">Add Goods</a>
+            <br />
+            <br/>
+        </div>
+        <form asp-action="Index" method="post">
+            <div>
+                <p>
+                    Find By Name<input type="text" placeholder="Search" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                    <input type="submit" name="name" value="Search" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-primary" style="width:auto">Back to full list</a>
+                </p>
+            </div>
+        </form>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]">Goods Name</a>
+                    </th>
+                    <th>Price</th>
+                    <th>Supplier</th>
+                    <th>Image</th>
+                    <th>View</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.GoodsName</td>
+                            <td>@item.GoodsPrice</td>
+                            <td>@item.Supplier.SupplierName</td>
+                            <td><img src="~/imags/@item.UrlImage" height="100" width="100" /></td>
+                            <td><a asp-controller="Good" asp-action="Details" asp-route-id="@item.GoodsId" class="btn btn-primary m-1">View</a></td>
+                            <td><a asp-controller="Good" asp-action="Edit" asp-route-id="@item.GoodsId" class="btn btn-primary m-1">Edit</a></td>
+                            <td><a asp-controller="Good" asp-action="Delete" asp-route-id="@item.GoodsId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this record??')">Delete</a></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        @{
+            var preDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        }
+        <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex-1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class=" btn btn-primary @preDisabled">Previous</a>
+        <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex+1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class=" btn btn-primary @nextDisabled">Next</a>
+    </div>
+</div>
